@@ -1,0 +1,27 @@
+name: london CI
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up jdk 17
+        uses: actions/setup-java@v2
+      with:
+        java-version: 17
+        distribution: 'adopt'
+        cache: 'gradle'
+       - name: Test With Gradle
+         run: ./gradlew test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: 'adopt'
+          cache: gradle
+      - name: Build with Gradle
+        run: ./gradlew build --scan --no-daemon
